@@ -13,7 +13,7 @@ class GroupRandomizer
     end
 end
 
-if __FILE__ == $o
+if __FILE__ == $0
     members = ["A","B","C","D","E","F"]
 
     randomizer = GroupRandomizer.new(members)
