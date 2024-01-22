@@ -13,13 +13,3 @@ class GroupRandomizer
     end
 end
 
-if __FILE__ == $0
-    members = ["A","B","C","D","E","F"]
-
-    randomizer = GroupRandomizer.new(members)
-
-    result = randomizer.randomize_groups
-
-    puts result[0]
-    puts result[1]
-end
