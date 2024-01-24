@@ -14,7 +14,7 @@ class GroupRandomizer
 end
 
 if __FILE__ == $0
-    members = %w(A B C D E F)
+    members = ["A","B","C","D","E","F"]
 
     randomizer = GroupRandomizer.new(members)
 
