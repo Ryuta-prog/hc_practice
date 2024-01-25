@@ -24,35 +24,50 @@ class Suica
     end
 end
   
+  class Juice
+    attr_reader :name, :price
+  
+    def initialize(name, price)
+      @name = name
+      @price = price
+    end
+  end
+  
   class VendingMachine
     def initialize
       @juices = {
-        pepsi: { juice: Juice.new('ペプシ', 150), stock: 5 },
-        monster: { juice: Juice.new('モンスター', 230), stock: 5 },
-        irohasu: { juice: Juice.new('いろはす', 120), stock: 5 }
+        pepsi: Juice.new('ペプシ', 150),
+        monster: Juice.new('モンスター', 230),
+        irohasu: Juice.new('いろはす', 120)
+      }
+      @stocks = {
+        pepsi: 5,
+        monster: 5,
+        irohasu: 5
       }
       @sales = 0
     end
   
     def stock(juice_name, new_juice_info, stock)
-      @juices[juice_name] = { juice: new_juice_info, stock: stock }
+      @juices[juice_name] = new_juice_info
+      @stocks[juice_name] = stock
     end
   
     def buy(juice_name, suica)
-      raise "#{juice_name}の在庫がありません" if @juices[juice_name][:stock] < 1
-      raise "残高が不足しています" if suica.balance < @juices[juice_name][:juice].price
+      raise "#{juice_name}の在庫がありません" if @stocks[juice_name] < 1
+      raise "残高が不足しています" if suica.balance < @juices[juice_name].price
   
-      suica.pay(@juices[juice_name][:juice].price)
-      @juices[juice_name][:stock] -= 1
-      @sales += @juices[juice_name][:juice].price
+      suica.pay(@juices[juice_name].price)
+      @stocks[juice_name] -= 1
+      @sales += @juices[juice_name].price
     end
   
     def stock_info
-      @juices.map { |name, info| "#{name}: #{info[:stock]}本" }.join(", ")
+      @stocks.map { |name, stock| "#{name}: #{stock}本" }.join(", ")
     end
   
     def purchasable_list(suica)
-      @juices.select { |_, info| info[:stock] > 0 && suica.balance >= info[:juice].price }.keys
+      @juices.select { |_, juice| @stocks[_] > 0 && suica.balance >= juice.price }.keys
     end
   
     def sales
