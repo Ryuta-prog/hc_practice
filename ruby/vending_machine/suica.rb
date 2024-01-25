@@ -2,7 +2,7 @@ class Suica
     def initialize
       @balance = 500
     end
-    
+  
     def charge(amount)
       raise "チャージ金額は100円以上である必要があります" if amount < 100
       @balance += amount
@@ -16,27 +16,26 @@ class Suica
       raise "残高が不足しています" if amount > @balance
       @balance -= amount
     end
+  
+    private
+  
+    def set_balance(new_balance)
+      @balance = new_balance
+    end
 end
   
-  class Juice
-    attr_reader :name, :price
-  
-    def initialize(name, price)
-      @name = name
-      @price = price
-    end
-  end
-  
   class VendingMachine
-    attr_reader :sales
-  
     def initialize
-      @juices = { pepsi: { juice: Juice.new('ペプシ', 150), stock: 5 } }
+      @juices = {
+        pepsi: { juice: Juice.new('ペプシ', 150), stock: 5 },
+        monster: { juice: Juice.new('モンスター', 230), stock: 5 },
+        irohasu: { juice: Juice.new('いろはす', 120), stock: 5 }
+      }
       @sales = 0
     end
   
     def stock(juice_name, new_juice_info, stock)
-      @juices[juice_name] = { juice: new_juice_info, stock: stock }  
+      @juices[juice_name] = { juice: new_juice_info, stock: stock }
     end
   
     def buy(juice_name, suica)
@@ -54,6 +53,10 @@ end
   
     def purchasable_list(suica)
       @juices.select { |_, info| info[:stock] > 0 && suica.balance >= info[:juice].price }.keys
+    end
+  
+    def sales
+      @sales
     end
   end
   
