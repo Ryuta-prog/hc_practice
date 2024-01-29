@@ -23,17 +23,15 @@ class Suica
 end
 
 @sales += @juices[juice_name][:juice].price
-  
+
     def stock_info
       @stocks.map { |name, stock| "#{name}: #{stock}本" }.join(", ")
     end
-  
+
     def purchasable_list(suica)
       @juices.select { |_, juice| @stocks[_] > 0 && suica.balance >= juice.price }.keys
     end
-  
+
     def sales
       @sales
     end
-  
-  

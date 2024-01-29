@@ -2,12 +2,17 @@ class VendingMachine
   attr_reader :sales
 
   def initialize
-    @juices = [Juice.new('ペプシ', 150, 5)]
+    @juices = {
+      'ペプシ' => { juice: Juice.new('ペプシ', 150), stock: 5 },
+      'モンスター' => { juice: Juice.new('モンスター', 230), stock: 5 },
+      'いろはす' => { juice: Juice.new('いろはす', 120), stock: 5 }
+    }
     @sales = 0
   end
 
+
   def stock(juice_name, new_juice_info, stock)
-    @juices << Juice.new(juice_name, new_juice_info, stock)
+  @juices << Juice.new(juice_name, new_juice_info, stock)
   end
 
   def buy(juice_name, suica)
