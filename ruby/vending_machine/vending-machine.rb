@@ -3,36 +3,22 @@ class VendingMachine
 
   def initialize
     @juices = [
-      Juice.new('ペプシ', 150),
-      Juice.new('ペプシ', 150),
-      Juice.new('ペプシ', 150),
-      Juice.new('ペプシ', 150),
-      Juice.new('ペプシ', 150),
-      Juice.new('モンスター', 230),
-      Juice.new('モンスター', 230),
-      Juice.new('モンスター', 230),
-      Juice.new('モンスター', 230),
-      Juice.new('モンスター', 230),
-      Juice.new('いろはす', 120),
-      Juice.new('いろはす', 120),
-      Juice.new('いろはす', 120),
-      Juice.new('いろはす', 120),
-      Juice.new('いろはす', 120),
+      5.times { Juice.new('ペプシ', 150) },
+      5.times { Juice.new('モンスター', 230) },
+https://prod.liveshare.vsengsaas.visualstudio.com/join?17A74485269E83868A1B7370E28F66FC1449https://prod.liveshare.vsengsaas.visualstudio.com/join?17A74485269E83868A1B7370E28F66FC1449class VendingMachine
+5.times { Juice.new('いろはす', 120) }
     ]
     @sales = 0
   end
 
-  def stock(juice_name, new_juice_info, stock)
-  end
-
   def buy(juice_name, suica)
-    selected_juice = @juices.find { |juice| juice.name == juice_name }
+    selected_juice = @juices.find { juice.name == juice_name }
 
     raise "#{juice_name}の在庫がありません" if selected_juice.stock < 1
     raise "残高が不足しています" if suica.balance < selected_juice.price
 
     suica.pay(selected_juice.price)
-    selected_juice.stock -= 1
+    selected_juice -= 1
     @sales += selected_juice.price
   end
 

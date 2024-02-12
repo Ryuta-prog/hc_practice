@@ -22,8 +22,6 @@ class Suica
   end
 end
 
-@sales += @juices[juice_name][:juice].price
-
     def stock_info
       @stocks.map { |name, stock| "#{name}: #{stock}本" }.join(", ")
     end
