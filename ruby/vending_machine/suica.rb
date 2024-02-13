@@ -20,7 +20,7 @@ class Suica
   def set_balance(new_balance)
     @balance = new_balance
   end
-end
+
 
     def stock_info
       @stocks.map { |name, stock| "#{name}: #{stock}本" }.join(", ")
@@ -33,3 +33,4 @@ end
     def sales
       @sales
     end
+end

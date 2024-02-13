@@ -20,12 +20,8 @@ class VendingMachine
     @sales += selected_juice.price
   end
 
-  def remove_juice(juice_name)
-    @juices.select { |juice| juice.name == juice_name }
-  end
-
   def sales_info
-    @juices.select { |juice| "#{juice.name}: #{juice.select}本" }.join(", ")
+    @sales
   end
 
   def purchasable_list(suica)
