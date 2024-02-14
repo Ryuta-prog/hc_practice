@@ -2,16 +2,14 @@ class VendingMachine
   attr_reader :sales
 
   def initialize
-    @juices = [
-      5.times { Juice.new('ペプシ', 150) },
-      5.times { Juice.new('モンスター', 230) },
-      5.times { Juice.new('いろはす', 120) }
-    ]
+    @juices = 5.times.map { |i| [Juice.new('ペプシ', 150), Juice.new('モンスター', 230), Juice.new('いろはす', 120)] }
+
+
     @sales = 0
   end
 
   def buy(juice_name, suica)
-    selected_juice = @juices.select { |juice| juice.name == juice_name }
+    selected_juice = @juices.count { |juice| juice.name == juice_name }
     raise "#{juice_name}の在庫がありません" if selected_juice < 1
     raise "残高が不足しています" if suica.balance < selected_juice.price
 
