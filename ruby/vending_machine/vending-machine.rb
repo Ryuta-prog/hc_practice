@@ -2,9 +2,7 @@ class VendingMachine
   attr_reader :sales
 
   def initialize
-    @juices = 5.times.map { |i| [Juice.new('ペプシ', 150), Juice.new('モンスター', 230), Juice.new('いろはす', 120)] }
-
-
+    @juices = 5.times { [Juice.new('ペプシ', 150), Juice.new('モンスター', 230), Juice.new('いろはす', 120)]}
     @sales = 0
   end
 
