@@ -16,7 +16,6 @@ class User
         "私は#{@name}です。#{@age}です "
     end
 end
+
 user = User.new("taro","20")
 user1 = user.introduce
-user1
-
