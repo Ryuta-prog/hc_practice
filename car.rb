@@ -20,7 +20,7 @@ class SportsCar < BaseCar
     end
     
     def model
-        "「#{@year}年に作られました。値段は#{@price}です。」「#{@speed}kmでます。」"
+        super + "「#{@speed}kmでます。」"
     end
 end    
 sportscar = SportsCar.new(2000,2000000,200)
