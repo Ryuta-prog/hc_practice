@@ -1,31 +1,25 @@
 class User
     attr_reader :name,:age
-    
+
     def initialize(name,age)
         @name = name
-        @age  = age 
-    end  
-    
-    def user
+        @age  = age
+    end
+
+    def introduction
         "「#{@name}です。#{@age}才です。」"
-    end    
-end    
+    end
+end
 
-class Group < User
-    
-    def initialize(name,age)
-        super(name,age)
-    end    
-    
-    def user
-        users = 10.times.map{ super } 
-    end 
-    
-    def users_output
-        puts user
-    end    
+class Group
+    attr_reader :users
 
-    group = Group.new("X",00)
-    group.users_output
+    def initialize(users)
+        @users = users
+        @users = 10.times { User }
+    end
+end
 
-end    
+10.times do 
+    puts   "「#{@name}です。#{@age}才です。」"
+end
