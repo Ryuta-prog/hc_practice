@@ -1,25 +1,7 @@
-class GroupRandomizer
-    def initialize(members)
-        @members = members.shuffle
+group = %w[A B C D E F]
 
-    end
+group1 = group.sample([2,3,4].sample).sort
+group2 = group - group1
 
-    def randomize_groups
-        group1_size = [2,3].sample
-        group1 = @members.shift(group1_size)
-        group2 = @members
-
-        [group1.sort, group2.sort]
-    end
-end
-
-if __FILE__ == $0
-    members = ["A","B","C","D","E","F"]
-
-    randomizer = GroupRandomizer.new(members)
-
-    result = randomizer.randomize_groups
-
-    puts result[0]
-    puts result[1]
-end
+p group1
+p group2
