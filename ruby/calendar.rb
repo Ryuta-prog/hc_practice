@@ -1,36 +1,32 @@
-require "date"
-require "optparse"
-
-def print_calendar(year, month)
-    first_day = Date.new(year, month, 1)
-    last_day = Date.new(year, month, -1)
-
-    puts "  #{month}月 #{year}  "
-    puts "月 火 水 木 金 土 日"
-
-    print "  "* first_day.wday
-
-    (first_day..last_day).each do |date|
-        print date.day.to_s.rjust(2) + " "
-        puts if date.sunday?
-    end
-
-    puts
-end
+require 'date'
+require 'optparse'
 
 options = {}
-opt = OptionParser.new
-opt.on("-m month", Integer) { |month| options[:month] = month }
-opt.parse!(ARGV)
+OptionParser.new do |opt|
+  opt.on('--month MONTH', 'Specify the month (1..12)') do |month|
+    options[:month] = month
+  end
+end.parse!
 
-now = Date.today
-year = now.year
+options[:month] = Date.today.month if options[:month].nil?
 
-month = options[:month] || now.month
-
-if month < 1 || 12 < month
-    puts "#{month} is neither a month number (1..12) nor a name"
-    exit
+unless (1..12).include?(options[:month].to_i)
+  raise "#{options[:month]} is neither a month number (1..12) nor a name"
 end
 
-print_calendar(year, month)
+date = Date.new(Date.today.year, options[:month].to_i, 1)
+
+puts date.strftime('%B %Y').center(20)
+puts "月 火 水 木 金 土 日"
+
+first_day = date.wday
+print "   " * first_day
+
+last_day = Date.new(date.year, date.month, -1)
+
+(date..last_day).each do |day|
+  print day.day.to_s.rjust(2) + " "
+  print "\n" if day.saturday?
+end
+
+puts "\n" unless last_day.saturday?
