@@ -1,32 +1,38 @@
-SCORES = {
-    1 => "ホールインワン",
-    -1 => "バーディ",
-    -2 => "イーグル",
-    -3 => "アルバトロス",
-    -4 => "コンドル",
-    0 => "パー",
+# frozen_string_literal: true
+
+lines = readlines
+
+lines[0] = lines[0].gsub("\n", ' ')
+lines[1] = lines[1].gsub("\n", ' ')
+
+x = lines[0].split(',')
+y = lines[1].split(',')
+
+x.map!(&:to_i)
+y.map!(&:to_i)
+
+score_names = {
+
+ -4 => 'コンドル',
+ -3 => 'アルバトロス',
+ -2 => 'イーグル',
+ -1 => 'バーディ',
+ 0 => 'バー',
+ 1 => 'ボギー',
+ 2 => '2ボギー',
+ 3 => '3ボギー'
 }
 
-par_scores = gets.chomp.split(",").map(&:to_i)
+result = []
 
-player_scores = gets.chomp.split(",").map(&:to_i)
+x.zip(y) do |hole, player|
+  score = player - hole
 
-results = []
-
-par_scores.zip(player_scores).each do |par, score|
-    diff = score - par
-
-    if SCORES.key?(diff)
-        if (par == 3 || par == 4) && score == 1
-          results << "ホールインワン"
-        else
-          results << SCORES[diff]
-        end
-    elsif diff > 0
-        results << "#{diff}ボギー"
-    else
-        results << "#{-diff}アンダー"
-    end
+  if player == 1 && [3, 4].include?(hole)
+    result.push('ホールインワン')
+  else
+    result.push(score_names[score])
+  end
 end
 
-puts results.join(",")
+puts result.join(',')
