@@ -1,17 +1,24 @@
-class Suica
-  attr_reader :balance
+# frozen_string_literal: true
 
-  def initialize
-    @balance = 500
+# Suica
+class Suica
+  def initialize(depogit = 500)
+    @depogit = depogit
   end
 
   def charge(amount)
     raise "チャージ金額は100円以上である必要があります" if amount < 100
-    @balance += amount
+
+    @depogit += amount
   end
 
   def pay(amount)
-    raise "残高が不足しています" if amount > @balance
-    @balance -= amount
+    raise "残高が不足しています" if amount > @depogit
+
+    @depogit -= amount
+  end
+
+  def check_depogit
+    "このSuicaの残高は#{@depogit}円です"
   end
 end
