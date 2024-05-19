@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ジュース
 class Juice
   attr_reader :name, :price
 
