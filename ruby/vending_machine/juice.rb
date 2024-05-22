@@ -10,4 +10,3 @@ class Juice
   end
 end
 
-
