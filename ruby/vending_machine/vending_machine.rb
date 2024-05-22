@@ -60,5 +60,3 @@ class VendingMachine
     suica.pay(value)
   end
 end
-
-

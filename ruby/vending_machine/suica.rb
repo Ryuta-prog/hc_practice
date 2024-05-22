@@ -22,5 +22,3 @@ class Suica
     "このSuicaの残高は#{@depogit}円です"
   end
 end
-
-
