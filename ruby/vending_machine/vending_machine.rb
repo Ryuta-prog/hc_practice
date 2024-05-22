@@ -59,8 +59,4 @@ class VendingMachine
   def reduce_suica(suica, value)
     suica.pay(value)
   end
-
-  def sales=(value)
-    @sales = value
-  end
 end
