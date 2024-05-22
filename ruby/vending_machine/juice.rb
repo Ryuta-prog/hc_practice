@@ -9,4 +9,3 @@ class Juice
     @price = price
   end
 end
-
