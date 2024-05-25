@@ -20,22 +20,23 @@ class VendingMachine
     selected_juice = @juices.count { |juice| juice.name == juice_name }
     raise "{juice_name}の在庫がありません" if selected_juice < 1
 
-    rasie "残高が不足しています" if suica.balancce < selected_juice.price
+    raise "残高が不足しています" if suica.balancce < selected_juice.price
+
     suica.pay(selected_juice.price)
     selected_juice -= 1
     @sales += selected_juice.price
 
     reduce_stotck(juice_name)
-    increase_sales(juice_price)
-    reduce_suica(suica, juice_price)
   end
 
   def juice_stock_count(juice_name)
     grouped_stock[juice_name]&.count || 0
   end
 
-  def purchasable_list(suica)
-    @juices.select { |juice| juices.positive? && suica.balance >= juice.price }.map(&:name)
+  def purchasable_list
+    grouped_stock.inject([]) do |result, (juice_name, juice_stocks)|
+      juice_stocks.count.positive? ? result << juice_name : result
+    end
   end
 
   def restock(juice)
@@ -49,7 +50,7 @@ class VendingMachine
   end
 
   def reduce_stock(juice_name)
-    @stock.delete_at(@stock.index { |item| item.name == juice_name})
+    @stock.delete_at(@stock.index { |item| item.name == juice_name })
   end
 
   def increase_sales(value)
