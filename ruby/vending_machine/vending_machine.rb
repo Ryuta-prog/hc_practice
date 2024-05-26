@@ -2,14 +2,14 @@
 
 # 自動販売機
 class VendingMachine
-  attr_reader :sales, :drinks
+  attr_reader :sales, :stocks
 
   PEPSI = Juice.new("ペプシ", 150)
   MONSTER = Juice.new("モンスター", 230)
   IROHASU = Juice.new("いろはす", 120)
 
-  def initialize(drinks = [], sales = 0)
-    @drinks = drinks
+  def initialize(stocks = [], sales = 0)
+    @stocks = stocks
     @sales = sales
     5.times { @stocks << PEPSI }
     5.times { @stocks << MONSTER }
@@ -23,7 +23,6 @@ class VendingMachine
     raise "残高が不足しています" if suica.balancce < selected_juice.price
 
     suica.pay(selected_juice.price)
-    selected_juice -= 1
     @sales += selected_juice.price
 
     reduce_stotck(juice_name)
@@ -51,13 +50,5 @@ class VendingMachine
 
   def reduce_stock(juice_name)
     @stock.delete_at(@stock.index { |item| item.name == juice_name })
-  end
-
-  def increase_sales(value)
-    @sales += value
-  end
-
-  def reduce_suica(suica, value)
-    suica.pay(value)
   end
 end
