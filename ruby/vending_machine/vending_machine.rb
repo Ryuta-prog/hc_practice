@@ -25,7 +25,7 @@ class VendingMachine
     suica.pay(selected_juice.price)
     @sales += selected_juice.price
 
-    reduce_stotck(juice_name)
+    reduce_stock(juice_name)
   end
 
   def juice_stock_count(juice_name)
