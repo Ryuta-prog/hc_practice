@@ -18,7 +18,7 @@ class VendingMachine
 
   def buy(juice_name, suica)
     selected_juice = @stocks.count { |juice| juice.name == juice_name }
-    raise "{juice_name}の在庫がありません" if selected_juice < 1
+    raise "#{juice_name}の在庫がありません" if selected_juice < 1
 
     raise "残高が不足しています" if suica.balance < selected_juice.price
 
