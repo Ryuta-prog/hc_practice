@@ -17,10 +17,10 @@ class VendingMachine
   end
 
   def buy(juice_name, suica)
-    selected_juice = @juices.count { |juice| juice.name == juice_name }
+    selected_juice = @stocks.count { |juice| juice.name == juice_name }
     raise "{juice_name}の在庫がありません" if selected_juice < 1
 
-    raise "残高が不足しています" if suica.balancce < selected_juice.price
+    raise "残高が不足しています" if suica.balance < selected_juice.price
 
     suica.pay(selected_juice.price)
     @sales += selected_juice.price
