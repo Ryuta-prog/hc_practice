@@ -17,8 +17,8 @@ class VendingMachine
   end
 
   def buy(juice_name, suica)
-    selected_juice = @stocks.count { |juice| juice.name == juice_name }
-    raise "#{juice_name}の在庫がありません" if selected_juice < 1
+    selected_juice = @stocks.find { |juice| juice.name == juice_name }
+    raise "#{juice_name}の在庫がありません" if selected_juice.nil?
 
     raise "残高が不足しています" if suica.balance < selected_juice.price
 
@@ -39,16 +39,16 @@ class VendingMachine
   end
 
   def restock(juice)
-    @stock << juice
+    @stocks << juice
   end
 
   private
 
   def grouped_stock
-    @stock.group_by(&:name)
+    @stocks.group_by(&:name)
   end
 
   def reduce_stock(juice_name)
-    @stock.delete_at(@stock.index { |item| item.name == juice_name })
+    @stocks.delete_at(@stocks.index { |item| item.name == juice_name })
   end
 end
