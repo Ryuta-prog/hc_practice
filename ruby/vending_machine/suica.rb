@@ -21,4 +21,8 @@ class Suica
   def check_deposit
     "このSuicaの残高は#{@deposit}円です"
   end
+
+  def balance
+    @depogit
+  end
 end
