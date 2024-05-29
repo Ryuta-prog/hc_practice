@@ -23,6 +23,6 @@ class Suica
   end
 
   def balance
-    @depogit
+    @deposit
   end
 end
