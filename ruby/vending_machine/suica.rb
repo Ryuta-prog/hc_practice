@@ -1,36 +1,28 @@
-class Suica
-  attr_reader :balance
+# frozen_string_literal: true
 
-  def initialize
-    @balance = 500
+# Suica
+class Suica
+  def initialize(deposit = 500)
+    @deposit = deposit
   end
 
   def charge(amount)
     raise "チャージ金額は100円以上である必要があります" if amount < 100
-    @balance += amount
+
+    @deposit += amount
   end
 
   def pay(amount)
-    raise "残高が不足しています" if amount > @balance
-    @balance -= amount
+    raise "残高が不足しています" if amount > @deposit
+
+    @deposit -= amount
   end
 
-  private
-
-  def set_balance(new_balance)
-    @balance = new_balance
+  def check_deposit
+    "このSuicaの残高は#{@deposit}円です"
   end
 
-
-    def stock_info
-      @stocks.map { |name, stock| "#{name}: #{stock}本" }.join(", ")
-    end
-
-    def purchasable_list(suica)
-      @juices.select { |_, juice| @stocks[_] > 0 && suica.balance >= juice.price }.keys
-    end
-
-    def sales
-      @sales
-    end
+  def balance
+    @deposit
+  end
 end
